@@ -1,7 +1,7 @@
 package coinpurse;
 
 /**
- * a coin with a monetary value and currency
+ * A coin with a monetary value and currency.
  * 
  * @author Pittayut Sothanakul
  */
@@ -40,11 +40,11 @@ public class Coin implements Comparable<Coin> {
 	}
 
 	/**
-	 * Compare two coins by value and currency
+	 * Compare two coins by value and currency.
 	 * 
 	 * @param arg
 	 *            is another Object to compare to this one.
-	 * @return true if the value and currncy is same , false if not same
+	 * @return true if the value and currncy is same , false if not same.
 	 */
 	public boolean equals(Object arg) {
 		if (arg == null)
@@ -59,9 +59,9 @@ public class Coin implements Comparable<Coin> {
 	}
 
 	/**
-	 * Return a string representation of this Coin
+	 * Return a string representation of this Coin.
 	 * 
-	 * @return string that describes the coin
+	 * @return string that describes the coin.
 	 * 
 	 */
 	public String toString() {
@@ -70,12 +70,12 @@ public class Coin implements Comparable<Coin> {
 	}
 
 	/**
-	 * Order Coins by value so that the smaller value comes first
+	 * Order Coins by value so that the smaller value comes first.
 	 * 
 	 * @param coin
-	 *            is object of Coin that you want to compare with
+	 *            is object of Coin that you want to compare with other coin.
 	 * @return 1 if this coin has greater value 0 if both have same value -1 if
-	 *         this coin has lesser value
+	 *         this coin has lesser value.
 	 */
 
 	@Override

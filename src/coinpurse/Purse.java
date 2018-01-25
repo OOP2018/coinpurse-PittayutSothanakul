@@ -6,8 +6,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-// You will use Collections.sort() to sort the coins
-
 /**
  * A coin purse contains coins. You can insert coins, withdraw money, check the
  * balance, and check if the purse is full.
@@ -56,7 +54,7 @@ public class Purse {
 		for (int i = 0; i < money.size(); i++) {
 			balance += money.get(i).getValue();
 		}
-		return this.balance;
+		return balance;
 	}
 
 	/**
