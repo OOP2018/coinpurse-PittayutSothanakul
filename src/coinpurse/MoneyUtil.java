@@ -46,7 +46,7 @@ public class MoneyUtil {
 			public int compare(Valuable o1, Valuable o2) {
 				if (o1.getValue() < o2.getValue())
 					return -1;
-				
+
 				else if (o1.getValue() > o2.getValue())
 					return 1;
 
@@ -61,20 +61,19 @@ public class MoneyUtil {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		Purse purse = new Purse(3);
-		System.out.println(purse.getBalance());
-		System.out.println(purse.count());
-		System.out.println(purse.isFull());
-		System.out.println(purse.insert(new Coin(5, "Bath")));
-		System.out.println(purse.insert(new Coin(10, "Dollar")));
-		System.out.println(purse.insert(new Coin(0, "Bath")));
-		System.out.println(purse.insert(new Coin(1, "Bath")));
-		System.out.println(purse.insert(new Coin(5, "Bath")));
-		System.out.println(purse.count());
-		System.out.println(purse.isFull());
-		System.out.println(purse.getBalance());
-		System.out.println(purse.toString());
-		System.out.println(purse.withdraw(12));
-		System.out.println(Arrays.toString(purse.withdraw(15)));
+
+		Purse p = new Purse(6);
+		p.insert(new Coin(10, "Bath"));
+		p.insert(new Coin(5, "Dollar"));
+		p.insert(new Coin(2, "Bath"));
+		p.insert(new Coin(5, "Bath"));
+		p.insert(new BankNote(20, "Bath"));
+		p.insert(new BankNote(1, "Bath"));
+		System.out.println(p.toString());
+		System.out.println(filterByCurrency(p.getMoney(), "Bath").toString());
+		System.out.println(filterByCurrency(p.getMoney(), "Dollar").toString());
+		sortCoins(p.getMoney());
+		System.out.println(filterByCurrency(p.getMoney(), "Bath").toString());
+
 	}
 }

@@ -17,7 +17,7 @@ import com.sun.org.apache.bcel.internal.generic.NEW;
 public class Purse {
 	/** Collection of objects in the purse. */
 
-	private List<Valuable> money = new ArrayList<Valuable>();
+	private ArrayList<Valuable> money = new ArrayList<Valuable>();
 
 	/**
 	 * Capacity is maximum number of items the purse can hold. Capacity is set
@@ -99,13 +99,6 @@ public class Purse {
 		}
 		money.add(coin);
 
-		Collections.sort(this.money, new Comparator<Valuable>() {
-
-			@Override
-			public int compare(Valuable o1, Valuable o2) {
-				return Double.compare(o1.getValue(), o2.getValue());
-			}
-		});
 
 		return true;
 	}
@@ -127,7 +120,7 @@ public class Purse {
 		if (amount > this.getBalance())
 			return null;
 
-		List<Valuable> templist = new ArrayList<>();
+		ArrayList<Valuable> templist = new ArrayList<>();
 		for (int i = money.size() - 1; i >= 0; i--) {
 			if (money.get(i).getValue() <= amount) {
 				templist.add(money.get(i));
@@ -158,7 +151,14 @@ public class Purse {
 	 */
 	public String toString() {
 
-		return money.size() + " coins with value " + this.balance;
+		return money.size() + " coins with value " + this.getBalance();
 	}
+
+	public List<Valuable> getMoney() {
+
+		return this.money;
+	}
+
+
 
 }
