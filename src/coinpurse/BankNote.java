@@ -51,7 +51,7 @@ public class BankNote implements Valuable {
 			return false;
 		if (arg.getClass() != this.getClass())
 			return false;
-		Coin other = (Coin) arg;
+		BankNote other = (BankNote) arg;
 		if (this.value == other.getValue() && this.currency == other.getCurrency())
 			return true;
 

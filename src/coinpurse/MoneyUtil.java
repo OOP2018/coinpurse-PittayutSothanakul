@@ -40,19 +40,8 @@ public class MoneyUtil {
 	 * 
 	 */
 	public static void sortCoins(List<Valuable> coins) {
-		Collections.sort(coins, new Comparator<Valuable>() {
-
-			@Override
-			public int compare(Valuable o1, Valuable o2) {
-				if (o1.getValue() < o2.getValue())
-					return -1;
-
-				else if (o1.getValue() > o2.getValue())
-					return 1;
-
-				return 0;
-			}
-		});
+		Collections.sort(coins,new ValueComparater());
+		
 	}
 
 	/**

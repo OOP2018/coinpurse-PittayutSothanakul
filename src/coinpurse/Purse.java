@@ -6,8 +6,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import com.sun.org.apache.bcel.internal.generic.NEW;
-
 /**
  * A coin purse contains coins. You can insert coins, withdraw money, check the
  * balance, and check if the purse is full.
@@ -18,6 +16,7 @@ public class Purse {
 	/** Collection of objects in the purse. */
 
 	private ArrayList<Valuable> money = new ArrayList<Valuable>();
+	private Comparator<Valuable> comparator = new ValueComparater();
 
 	/**
 	 * Capacity is maximum number of items the purse can hold. Capacity is set
@@ -76,11 +75,7 @@ public class Purse {
 	 * @return true if purse is full.
 	 */
 	public boolean isFull() {
-
-		if (count() >= capacity)
-			return true;
-
-		return false;
+		return money.size() == this.capacity;
 	}
 
 	/**
@@ -99,7 +94,6 @@ public class Purse {
 		}
 		money.add(coin);
 
-
 		return true;
 	}
 
@@ -114,26 +108,24 @@ public class Purse {
 	 *         withdraw requested amount.
 	 */
 	public Valuable[] withdraw(double amount) {
-
-		if (amount < 0)
-			return null;
-		if (amount > this.getBalance())
-			return null;
-
+		double amountNeededToWithdraw = amount;
 		ArrayList<Valuable> templist = new ArrayList<>();
-		for (int i = money.size() - 1; i >= 0; i--) {
-			if (money.get(i).getValue() <= amount) {
-				templist.add(money.get(i));
-				amount -= money.get(i).getValue();
+		if (amountNeededToWithdraw < 0)
+			return null;
 
+		if (amountNeededToWithdraw > this.getBalance())
+			return null;
+
+		if (amountNeededToWithdraw != 0) {
+			Collections.sort(money, comparator);
+			for (int i = money.size() - 1; i >= 0; i--) {
+				if (money.get(i).getValue() <= amountNeededToWithdraw) {
+					templist.add(money.get(i));
+					amountNeededToWithdraw -= money.get(i).getValue();
+				}
 			}
 		}
 
-		double amountNeededToWithdraw = amount;
-
-		if (amountNeededToWithdraw != 0) {
-			return null;
-		}
 		if (amountNeededToWithdraw == 0) {
 			for (Valuable coinNeedToWithdraw : templist) {
 				money.remove(coinNeedToWithdraw);
@@ -141,7 +133,6 @@ public class Purse {
 		}
 
 		Valuable[] array = new Valuable[templist.size()];
-
 		return templist.toArray(array);
 	}
 
@@ -158,7 +149,5 @@ public class Purse {
 
 		return this.money;
 	}
-
-
 
 }
