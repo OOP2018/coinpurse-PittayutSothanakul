@@ -1,7 +1,6 @@
 package coinpurse;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -86,39 +85,68 @@ public class Purse {
 	 *            is a Coin object to insert into purse
 	 * @return true if coin inserted, false if can't insert
 	 */
-	public boolean insert(Valuable coin) {
+	public boolean insert(Valuable valuable) {
 		// if the purse is already full then can't insert anything.
 
-		if (isFull() || coin.getValue() <= 0) {
+		if (isFull() || valuable.getValue() <= 0) {
 			return false;
 		}
-		money.add(coin);
+		money.add(valuable);
 
 		return true;
 	}
 
 	/**
-	 * Withdraw the requested amount of money. Return an array of Coins
+	 * Withdraw the requested amount of money. Return an array of money
 	 * withdrawn from purse, or return null if cannot withdraw the amount
 	 * requested.
 	 * 
 	 * @param amount
 	 *            is the amount to withdraw
-	 * @return array of Coin objects for money withdrawn, or null if cannot
+	 * @return array of Money objects for money withdrawn, or null if cannot
 	 *         withdraw requested amount.
 	 */
+
 	public Valuable[] withdraw(double amount) {
 
-		double amountNeededToWithdraw = amount;
+		Money money = new Money(amount, "Baht");
+		return withdraw(money);
+	}
+
+	/**
+	 * Withdraw the amount,that have the same currency as the amount
+	 * 
+	 * 
+	 * 
+	 * @param amount
+	 *            is the amount to withdraw with same currency.
+	 * @return array of Money objects for money withdrawn, or null if cannot
+	 *         withdraw requested amount.
+	 */
+	public Valuable[] withdraw(Valuable amount) {
+
+		double amountNeededToWithdraw = amount.getValue();
 		ArrayList<Valuable> temptlist = new ArrayList<>();
 		Collections.sort(money, comparator);
-		for (int i = money.size() - 1; i >= 0; i--) {
-			if (money.get(i).getValue() <= amountNeededToWithdraw) {
-				temptlist.add(money.get(i));
-				amountNeededToWithdraw -= money.get(i).getValue();
-				money.remove(i);
+		if (amountNeededToWithdraw > getBalance()) {
+			return null;
+		}
+
+		if (amountNeededToWithdraw != 0) {
+			for (int i = money.size() - 1; i >= 0; i--) {
+				if (money.get(i).getValue() <= amountNeededToWithdraw) {
+					temptlist.add(money.get(i));
+					amountNeededToWithdraw -= money.get(i).getValue();
+				}
 			}
 		}
+
+		if (amountNeededToWithdraw == 0) {
+			for (Valuable coinNeedToWithdraw : temptlist) {
+				money.remove(coinNeedToWithdraw);
+			}
+		}
+
 		if (amountNeededToWithdraw > 0) {
 			return null;
 		}

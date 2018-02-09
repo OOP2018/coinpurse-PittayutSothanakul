@@ -6,12 +6,10 @@ package coinpurse;
  * @author Pittayut Sothanakul
  *
  */
-public class BankNote implements Valuable {
+public class BankNote extends Money {
 
 	private static long nextSerialNumber = 1000000;
 
-	private double value;
-	private String currency;
 	private long serialNumber;
 
 	/**
@@ -21,49 +19,27 @@ public class BankNote implements Valuable {
 	 * @param currency
 	 */
 	public BankNote(double value, String currency) {
-		this.value = value;
-		this.currency = currency;
+		super(value, currency);
+	}
+
+	/**
+	 * Create banknote for collect money with serial number.
+	 * 
+	 * @param value
+	 * @param currency
+	 * @param serialNumber
+	 */
+	public BankNote(double value, String currency, long serialNumber) {
+		super(value, currency);
 		this.serialNumber = nextSerialNumber++;
 	}
-
 	/**
-	 * Return value of banknote.
+	 * Return a string representation of this BankNote.
+	 * 
+	 * @return string that describes the BankNote.
+	 * 
 	 */
-	@Override
-	public double getValue() {
-		return value;
-	}
-
-	/**
-	 * Return currency of banknote.
-	 */
-	@Override
-	public String getCurrency() {
-		return currency;
-	}
-
-	/**
-	 * Check banknote that they are equal or not.
-	 */
-	@Override
-	public boolean equals(Object arg) {
-		if (arg == null)
-			return false;
-		if (arg.getClass() != this.getClass())
-			return false;
-		BankNote other = (BankNote) arg;
-		if (this.value == other.getValue() && this.currency.equals(other.getCurrency()))
-			return true;
-
-		return false;
-	}
-
-	/**
-	 * toString returns a string description of banknote.
-	 */
-	@Override
 	public String toString() {
-		return String.format("%.0f-%s", this.value, this.currency);
-
+		return getValue() + "-" + getCurrency() + "seriaNumber " + serialNumber;
 	}
 }
