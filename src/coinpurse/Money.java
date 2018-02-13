@@ -10,11 +10,14 @@ public class Money implements Valuable {
 
 	protected double value;
 	protected String currency;
+
 	/**
 	 * Create money that have value and currency of money.
 	 * 
-	 * @param value of money
-	 * @param currency of money
+	 * @param value
+	 *            of money
+	 * @param currency
+	 *            of money
 	 */
 	public Money(double value, String currncey) {
 		this.value = value;
@@ -57,6 +60,7 @@ public class Money implements Valuable {
 
 		return false;
 	}
+
 	/**
 	 * Compare value of money.
 	 * 
@@ -65,7 +69,18 @@ public class Money implements Valuable {
 		if (other == null) {
 			return -1;
 		}
-		return (int) Math.signum(this.value - other.getValue());
+		if (this.getCurrency().equalsIgnoreCase(other.getCurrency())) {
+			if (this.getValue() < other.getValue())
+				return -1;
+
+			else if (this.getValue() > other.getValue())
+				return 1;
+
+			else
+				return 0;
+
+		}
+		return this.getCurrency().compareToIgnoreCase(other.getCurrency());
 	}
 
 }

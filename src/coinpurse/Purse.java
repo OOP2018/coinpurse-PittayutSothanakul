@@ -16,6 +16,7 @@ public class Purse {
 
 	private ArrayList<Valuable> money = new ArrayList<Valuable>();
 	private Comparator<Valuable> comparator = new ValueComparater();
+	public static final String DEFAULT_CURRENCY = "Baht";
 
 	/**
 	 * Capacity is maximum number of items the purse can hold. Capacity is set
@@ -78,12 +79,12 @@ public class Purse {
 	}
 
 	/**
-	 * Insert a coin into the purse. The coin is only inserted if the purse has
-	 * space for it and the coin has positive value. No worthless coins!
+	 * Insert a value into the purse. The value is only inserted if the purse has
+	 * space for it and the value has positive value. No worthless coins!
 	 * 
-	 * @param coin
-	 *            is a Coin object to insert into purse
-	 * @return true if coin inserted, false if can't insert
+	 * @param valuable
+	 *            is a Valuable object to insert into purse.
+	 * @return true if valuable inserted, false if can't insert.
 	 */
 	public boolean insert(Valuable valuable) {
 		// if the purse is already full then can't insert anything.
@@ -109,7 +110,7 @@ public class Purse {
 
 	public Valuable[] withdraw(double amount) {
 
-		Money money = new Money(amount, "Baht");
+		Money money = new Money(amount, DEFAULT_CURRENCY);
 		return withdraw(money);
 	}
 
