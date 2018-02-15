@@ -79,8 +79,8 @@ public class Purse {
 	}
 
 	/**
-	 * Insert a value into the purse. The value is only inserted if the purse has
-	 * space for it and the value has positive value. No worthless coins!
+	 * Insert a value into the purse. The value is only inserted if the purse
+	 * has space for it and the value has positive value. No worthless coins!
 	 * 
 	 * @param valuable
 	 *            is a Valuable object to insert into purse.
@@ -132,22 +132,23 @@ public class Purse {
 		if (amountNeededToWithdraw > getBalance()) {
 			return null;
 		}
+		
+		if (amount.getCurrency().equalsIgnoreCase(DEFAULT_CURRENCY)) {
+			if (amountNeededToWithdraw != 0) {
+				for (int i = money.size() - 1; i >= 0; i--) {
+					if (money.get(i).getValue() <= amountNeededToWithdraw) {
+						temptlist.add(money.get(i));
+						amountNeededToWithdraw -= money.get(i).getValue();
+					}
+				}
+			}
 
-		if (amountNeededToWithdraw != 0) {
-			for (int i = money.size() - 1; i >= 0; i--) {
-				if (money.get(i).getValue() <= amountNeededToWithdraw) {
-					temptlist.add(money.get(i));
-					amountNeededToWithdraw -= money.get(i).getValue();
+			if (amountNeededToWithdraw == 0) {
+				for (Valuable coinNeedToWithdraw : temptlist) {
+					money.remove(coinNeedToWithdraw);
 				}
 			}
 		}
-
-		if (amountNeededToWithdraw == 0) {
-			for (Valuable coinNeedToWithdraw : temptlist) {
-				money.remove(coinNeedToWithdraw);
-			}
-		}
-
 		if (amountNeededToWithdraw > 0) {
 			return null;
 		}

@@ -29,7 +29,7 @@ public class BankNote extends Money {
 	 * 
 	 * @return the serial number.
 	 */
-	public long getSerialNumber() {
+	public long getSerial() {
 		return serialNumber;
 	}
 
