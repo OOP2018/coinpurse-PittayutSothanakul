@@ -133,10 +133,10 @@ public class Purse {
 			return null;
 		}
 		
-		if (amount.getCurrency().equalsIgnoreCase("Baht")) {
+
 			if (amountNeededToWithdraw != 0) {
 				for (int i = money.size() - 1; i >= 0; i--) {
-					if (money.get(i).getValue() <= amountNeededToWithdraw) {
+					if (money.get(i).getValue() <= amountNeededToWithdraw &&money.get(i).getCurrency().equalsIgnoreCase(amount.getCurrency())) {
 						temptlist.add(money.get(i));
 						amountNeededToWithdraw -= money.get(i).getValue();
 					}
@@ -147,7 +147,6 @@ public class Purse {
 				for (Valuable coinNeedToWithdraw : temptlist) {
 					money.remove(coinNeedToWithdraw);
 				}
-			}
 		}
 		if (amountNeededToWithdraw > 0) {
 			return null;
