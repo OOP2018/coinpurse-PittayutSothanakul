@@ -133,7 +133,7 @@ public class Purse {
 			return null;
 		}
 		
-		if (amount.getCurrency().equalsIgnoreCase(DEFAULT_CURRENCY)) {
+		if (amount.getCurrency().equalsIgnoreCase("Baht")) {
 			if (amountNeededToWithdraw != 0) {
 				for (int i = money.size() - 1; i >= 0; i--) {
 					if (money.get(i).getValue() <= amountNeededToWithdraw) {
