@@ -83,10 +83,11 @@ public class ConsoleDialog {
 		// parse input line into numbers
 		Scanner scanline = new Scanner(inline);
 		while (scanline.hasNextDouble()) {
-			Valuable valuable;
+		     MoneyFactory factory = MoneyFactory.getInstance();
 			double value = scanline.nextDouble();
+			Valuable valuable;
 			try {
-				valuable = makeMoney(value);
+				valuable = factory.createMoney(value);
 			} catch (IllegalArgumentException ex) {
 				System.out.println("Sorry, "+value+" is not a valid amount.");
 			    continue;
@@ -133,9 +134,5 @@ public class ConsoleDialog {
 		scanline.close();
 	}
 
-	/** Make a Coin (or BankNote or whatever) using requested value. */
-	private Money makeMoney(double value) {
-		return new Coin(value, CURRENCY);
-	}
 
 }

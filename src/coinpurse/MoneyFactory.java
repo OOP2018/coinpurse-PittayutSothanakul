@@ -25,6 +25,9 @@ public abstract class MoneyFactory {
 	 * @return object of a subclass
 	 */
 	public static MoneyFactory getInstance() {
+//		if (FACTORY == null) {
+//			FACTORY = new ReadFile().Rad();
+//		}
 		return FACTORY;
 	}
 
