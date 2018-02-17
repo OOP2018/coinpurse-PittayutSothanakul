@@ -36,7 +36,11 @@ public class Coin extends Money {
 	 * 
 	 */
 	public String toString() {
+		if (getValue()<1 &&getCurrency().equalsIgnoreCase("Sen")) {
+			return String.format("%.0f-%s", getValue()*100, getCurrency());
+		}
 		return String.format("%.0f-%s", getValue(), getCurrency());
+		
 
 	}
 

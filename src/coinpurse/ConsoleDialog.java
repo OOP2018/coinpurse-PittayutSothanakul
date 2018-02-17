@@ -83,10 +83,16 @@ public class ConsoleDialog {
 		// parse input line into numbers
 		Scanner scanline = new Scanner(inline);
 		while (scanline.hasNextDouble()) {
+			Valuable valuable;
 			double value = scanline.nextDouble();
-			Valuable coin = makeMoney(value);
-			System.out.printf("Deposit %s... ", coin.toString());
-			boolean ok = purse.insert(coin);
+			try {
+				valuable = makeMoney(value);
+			} catch (IllegalArgumentException ex) {
+				System.out.println("Sorry, "+value+" is not a valid amount.");
+			    continue;
+			}
+			System.out.printf("Deposit %s... ", valuable.toString());
+			boolean ok = purse.insert(valuable);
 			System.out.println((ok ? "ok" : "FAILED"));
 		}
 		if (scanline.hasNext())

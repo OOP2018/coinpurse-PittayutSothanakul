@@ -40,6 +40,7 @@ public class BankNote extends Money {
 	 * 
 	 */
 	public String toString() {
-		return getValue() + "-" + getCurrency() + "seriaNumber " + serialNumber;
+		return String.format("%.02f-%s note[%d]",getValue() , getCurrency() , serialNumber );
+
 	}
 }
