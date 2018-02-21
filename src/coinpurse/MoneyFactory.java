@@ -8,7 +8,7 @@ package coinpurse;
  */
 public abstract class MoneyFactory {
 
-	private static MoneyFactory FACTORY;
+	private static MoneyFactory factory = new ThaiMoneyFactory();
 	protected long nextSerialNumber = 1000000;
 
 	/**
@@ -25,10 +25,10 @@ public abstract class MoneyFactory {
 	 * @return object of a subclass
 	 */
 	public static MoneyFactory getInstance() {
-//		if (FACTORY == null) {
-//			FACTORY = new ReadFile().Rad();
-//		}
-		return FACTORY;
+		// if (FACTORY == null) {
+		// FACTORY = new ReadFile().Rad();
+		// }
+		return factory;
 	}
 
 	/**
@@ -42,8 +42,8 @@ public abstract class MoneyFactory {
 	public abstract Valuable createMoney(double value);
 
 	/**
-	 * Accepts money value as a String, e.g. createMoney("10"). This method is for
-	 * convenience of the U.I. If value is not a valid number, then throw
+	 * Accepts money value as a String, e.g. createMoney("10"). This method is
+	 * for convenience of the U.I. If value is not a valid number, then throw
 	 * IllegalArgumentException.
 	 * 
 	 * @param value
@@ -54,18 +54,19 @@ public abstract class MoneyFactory {
 		try {
 			double doubleValue = Double.parseDouble(value);
 			return this.createMoney(doubleValue);
-		} catch (IllegalArgumentException e) {
-			throw new IllegalArgumentException("It doesm't have " + value);
+		} catch (NumberFormatException e) {
+			throw new IllegalArgumentException(value = "cann't parse to double");
 		}
 	}
+
 	/**
 	 * Set type of money (What country).
 	 * 
 	 * @param factory
 	 *            type of money
 	 */
-	public static void setMoneyFactory(MoneyFactory factory) {
-		FACTORY = factory;
+	public static void setMoneyFactory(MoneyFactory mFactory) {
+		factory = mFactory;
 
 	}
 

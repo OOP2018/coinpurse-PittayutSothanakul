@@ -24,7 +24,7 @@ public class MalayMoneyFactory extends MoneyFactory {
 				|| value == 100) {
 			valuable = new BankNote(value, CURRENCY);
 		} else {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("It isn't Malay money");
 		}
 
 		return valuable;
