@@ -55,7 +55,7 @@ public abstract class MoneyFactory {
 			double doubleValue = Double.parseDouble(value);
 			return this.createMoney(doubleValue);
 		} catch (NumberFormatException e) {
-			throw new IllegalArgumentException(value = "cann't parse to double");
+			throw new IllegalArgumentException(value + "cann't parse to double", e);
 		}
 	}
 
