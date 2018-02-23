@@ -24,6 +24,11 @@ public class BankNote extends Money {
 		this.serialNumber = nextSerialNumber++;
 	}
 
+	public BankNote(double value, String currency, long serialNumber) {
+		super(value, currency);
+		this.serialNumber = serialNumber;
+	}
+
 	/**
 	 * to return the serial number of banknote.
 	 * 
@@ -40,7 +45,7 @@ public class BankNote extends Money {
 	 * 
 	 */
 	public String toString() {
-		return String.format("%.02f-%s note[%d]",getValue() , getCurrency() , serialNumber );
+		return String.format("%.02f-%s note[%d]", getValue(), getCurrency(), serialNumber);
 
 	}
 }

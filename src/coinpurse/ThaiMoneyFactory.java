@@ -8,6 +8,8 @@ package coinpurse;
  */
 public class ThaiMoneyFactory extends MoneyFactory {
 	private static String CURRENCY = "baht";
+	protected long nextSerialNumber = 1000000;
+
 
 	/**
 	 * Create new money value in Thailand currency.
@@ -21,7 +23,7 @@ public class ThaiMoneyFactory extends MoneyFactory {
 		if ( value == 0.25 ||value == 0.5 ||value == 1 || value == 2 || value == 5 || value == 10) {
 			valuable = new Coin(value, CURRENCY);
 		} else if (value == 20 || value == 50 || value == 100 || value == 500 || value == 1000) {
-			valuable = new BankNote(value, CURRENCY);
+			valuable = new BankNote(value, CURRENCY, nextSerialNumber++);
 		}else {
 			throw new IllegalArgumentException("It isn't Thai money");
 		}

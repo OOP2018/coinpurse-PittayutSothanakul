@@ -9,7 +9,7 @@ package coinpurse;
 public abstract class MoneyFactory {
 
 	private static MoneyFactory factory = new ThaiMoneyFactory();
-	protected long nextSerialNumber = 1000000;
+
 
 	/**
 	 * Constructor for MoneyFactory.

@@ -23,6 +23,8 @@ package coinpurse;
 	
 			Valuable m = thFactory.createMoney(5);
 			System.out.println(m.toString());
+			System.out.println("========");
+			System.out.println(m.toString());
 			Valuable m2 = thFactory.createMoney("1000.0");
 			System.out.println(m2.toString());
 			Valuable m3 = thFactory.createMoney(500);

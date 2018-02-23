@@ -10,6 +10,7 @@ public class MalayMoneyFactory extends MoneyFactory {
 
 	private static final String CURRENCY = "Ringgit";
 	private static final String CURRENCYCOIN = "Sen";
+	protected long nextSerialNumber = 1000000;
 
 	/**
 	 * Create new money value in Malaysia currency.
@@ -22,7 +23,7 @@ public class MalayMoneyFactory extends MoneyFactory {
 			valuable = new Coin(value, CURRENCYCOIN);
 		} else if (value == 1 || value == 2 || value == 5 || value == 10 || value == 20 || value == 50
 				|| value == 100) {
-			valuable = new BankNote(value, CURRENCY);
+			valuable = new BankNote(value, CURRENCY, nextSerialNumber++);
 		} else {
 			throw new IllegalArgumentException("It isn't Malay money");
 		}
