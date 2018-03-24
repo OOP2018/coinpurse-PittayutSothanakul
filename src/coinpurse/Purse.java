@@ -5,8 +5,11 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import coinpurse.strategy.GreedyWithdraw;
+import coinpurse.strategy.WithdrawStrategy;
+
 /**
- * A coin purse contains coins. You can insert coins, withdraw money, check the
+ * A purse contains coins. You can insert coins, withdraw money, check the
  * balance, and check if the purse is full.
  * 
  * @author Pittayut Sothanakul
@@ -17,6 +20,7 @@ public class Purse {
 	private ArrayList<Valuable> money = new ArrayList<Valuable>();
 	private Comparator<Valuable> comparator = new ValueComparater();
 	public static final String DEFAULT_CURRENCY = "Baht";
+	private WithdrawStrategy strategy;
 
 	/**
 	 * Capacity is maximum number of items the purse can hold. Capacity is set
@@ -26,12 +30,24 @@ public class Purse {
 	private double balance;
 
 	/**
+	 * Set withdraw strategy.
+	 * 
+	 * @param strategy
+	 *            to set
+	 * 
+	 */
+	public void setWithdrawStrategy(WithdrawStrategy strategy) {
+		this.strategy = strategy;
+	}
+
+	/**
 	 * Create a purse with a specified capacity.
 	 * 
 	 * @param capacity
 	 *            is maximum number of coins you can put in purse.
 	 */
 	public Purse(int capacity) {
+		strategy = new GreedyWithdraw();
 		this.capacity = capacity;
 	}
 
@@ -118,7 +134,6 @@ public class Purse {
 	 * Withdraw the amount,that have the same currency as the amount
 	 * 
 	 * 
-	 * 
 	 * @param amount
 	 *            is the amount to withdraw with same currency.
 	 * @return array of Money objects for money withdrawn, or null if cannot
@@ -126,34 +141,47 @@ public class Purse {
 	 */
 	public Valuable[] withdraw(Valuable amount) {
 
-		double amountNeededToWithdraw = amount.getValue();
-		ArrayList<Valuable> temptlist = new ArrayList<>();
 		Collections.sort(money, comparator);
-		if (amountNeededToWithdraw > getBalance()) {
+		List<Valuable> temptlist = strategy.withdraw(amount, money);
+		if (temptlist == null) {
 			return null;
 		}
-
-		if (amountNeededToWithdraw != 0) {
-			for (int i = money.size() - 1; i >= 0; i--) {
-				if (money.get(i).getValue() <= amountNeededToWithdraw
-						&& money.get(i).getCurrency().equalsIgnoreCase(amount.getCurrency())) {
-					temptlist.add(money.get(i));
-					amountNeededToWithdraw -= money.get(i).getValue();
-				}
-			}
+		for (Valuable valuable : temptlist) {
+			money.remove(valuable);
 		}
-
-		if (amountNeededToWithdraw == 0) {
-			for (Valuable coinNeedToWithdraw : temptlist) {
-				money.remove(coinNeedToWithdraw);
-			}
-		}
-		if (amountNeededToWithdraw > 0) {
-			return null;
-		}
-
 		Valuable[] array = new Valuable[temptlist.size()];
-		return temptlist.toArray(array);
+		temptlist.toArray(array);
+		return array;
+
+		// double amountNeededToWithdraw = amount.getValue();
+		// ArrayList<Valuable> temptlist = new ArrayList<Valuable>();
+		// if (amountNeededToWithdraw > getBalance()) {
+		// return null;
+		// }
+		//
+		// if (amountNeededToWithdraw != 0) {
+		// for (int i = money.size() - 1; i >= 0; i--) {
+		// if (money.get(i).getValue() <= amountNeededToWithdraw
+		// && money.get(i).getCurrency().equalsIgnoreCase(amount.getCurrency()))
+		// {
+		// temptlist.add(money.get(i));
+		// amountNeededToWithdraw -= money.get(i).getValue();
+		// }
+		// }
+		// }
+		//
+		// if (amountNeededToWithdraw == 0) {
+		// for (Valuable coinNeedToWithdraw : temptlist) {
+		// money.remove(coinNeedToWithdraw);
+		// }
+		// }
+		// if (amountNeededToWithdraw > 0) {
+		// return null;
+		// }
+		//
+		// Valuable[] array = new Valuable[temptlist.size()];
+		// return temptlist.toArray(array);
+
 	}
 
 	/**
@@ -166,7 +194,6 @@ public class Purse {
 	}
 
 	public List<Valuable> getMoney() {
-
 		return this.money;
 	}
 
